@@ -1,0 +1,19 @@
+﻿@using AspNetCoreRestaurantApp.Models;
+@model RestaurantViewModel
+<html>
+<head xmlns="http://www.w3.org/1999/xhtml">
+    <title>Restaurant App</title>
+</head>
+<body>
+    <h2>Restaurant Details</h2>
+    <table style="border:solid">
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+            <td>@Model.Address</td>
+            <td>@Model.CuisineType</td>
+        </tr>
+    </table>
+    <a asp-action="Index">Back</a>
+</body>
+</html>

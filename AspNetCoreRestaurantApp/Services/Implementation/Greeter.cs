@@ -1,11 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AspNetCoreRestaurantApp.Services.Interfaces;
+using Microsoft.Extensions.Configuration;
 
-namespace AspNetCoreRestaurantApp
+namespace AspNetCoreRestaurantApp.Services.Implementation
 {
-    public interface IGreeter
-    {
-        string GetMessageOfTheDay();
-    }
     public class Greeter : IGreeter
     {
         private IConfiguration _configuration;

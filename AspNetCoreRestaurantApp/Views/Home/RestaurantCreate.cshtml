@@ -1,0 +1,14 @@
+﻿@using AspNetCoreRestaurantApp.Services.Enums
+@using AspNetCoreRestaurantApp.Models
+@model RestaurantEditModel
+
+<h1>Create Restaurant</h1>
+<form action="Create" method="post">
+    <input asp-for="Name" />
+    <select asp-for="CuisineType" 
+            asp-items="@Html.GetEnumSelectList<CuisineType>()">
+    </select>
+    <input asp-for="Address" />
+
+    <input type="Submit" name="Save" values="Save">
+</form>
