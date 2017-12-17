@@ -7,9 +7,9 @@ namespace AspNetCoreRestaurantApp.Services.Repository
     public static class RestaurantRepository
     {
         public static List<IRestaurant> _restaurants;
-        public static List<IRestaurant> GetRestaurants()
+        static RestaurantRepository()
         {
-            return _restaurants = new List<IRestaurant>()
+            _restaurants = new List<IRestaurant>()
             {
                 new Restaurant() { Id=1, Name="Indranil's Pizza Place"},
                 new Restaurant() { Id=2, Name="Hotel Buhari"},
@@ -17,6 +17,14 @@ namespace AspNetCoreRestaurantApp.Services.Repository
                 new Restaurant() { Id=4, Name="Absolute Barbeque"},
                 new Restaurant() { Id=5, Name="Barbeque Nation"}
             };
+        }
+        public static List<IRestaurant> GetRestaurants()
+        {
+            return _restaurants;
+        }
+        public static void AddRestaurant(Restaurant restaurant)
+        {
+            _restaurants.Add(restaurant);
         }
     }
 }

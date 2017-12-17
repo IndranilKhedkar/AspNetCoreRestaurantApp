@@ -1,29 +1,18 @@
-﻿@using AspNetCoreRestaurantApp.Models;
-@model HomeIndexViewModel
-<html>
-<head xmlns="http://www.w3.org/1999/xhtml">
-    <title>Restaurant App</title>
-</head>
-<body>
-    <h1>@Model.MessageOfTheDay</h1>
-    <hr />
-    <h2>Restaurant Details</h2>
-    <table style="border:solid">
-        <tr>
-            <td>Id</td>
-            <td>Name</td>
-        </tr>
-        @foreach (var restaurant in Model.Restaurants)
-        {
-            <tr>
-                <td>@restaurant.Id</td>
-                <td>@restaurant.Name</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@restaurant.Id">More Details</a>
-                </td>
-            </tr>
-        }
-    </table>
-    <a asp-action="Create">Add Restaurant</a>
-</body>
-</html>
+﻿@model HomeIndexViewModel
+@{
+    ViewBag.Title = "Home - Restuarant";
+}
+<h1>@Model.MessageOfTheDay</h1>
+<hr />
+<div>
+    <h2>Restaurants</h2>
+    @foreach (var restaurant in Model.Restaurants)
+    {
+        <div>
+            @Html.Partial("_RestaurantDetails", restaurant)
+        </div>
+    }
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Create">Add Restaurant</a>
+</div>

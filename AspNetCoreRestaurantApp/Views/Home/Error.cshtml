@@ -1,10 +1,5 @@
-﻿@using AspNetCoreRestaurantApp.Models;
-@model ErrorViewModel
-<html>
-<head xmlns="http://www.w3.org/1999/xhtml">
-    <title>Restaurant App</title>
-</head>
-<body>
-    <h1>@Model.Message</h1>
-</body>
-</html>
+﻿@model ErrorViewModel
+@{ 
+    ViewBag.title = "Error";
+}
+<h1>@Model.Message</h1>

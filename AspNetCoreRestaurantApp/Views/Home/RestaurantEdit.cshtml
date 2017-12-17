@@ -1,27 +1,26 @@
 ﻿@using AspNetCoreRestaurantApp.Services.Enums
 @model RestaurantEditModel
 @{
-    ViewBag.title = "Home - Restaurant Create";
+    ViewBag.title = "Home - Restaurant Edit";
 }
 
-<h1>Create Restaurant</h1>
-<form action="Create" method="post">
+<h1>Editing @Model.Name</h1>
+<form method="post">
+
     @Html.AntiForgeryToken()
     <div>
         <label asp-for="Name"></label>
-        <input asp-for="Name" />
+        <input asp-for="Name" value="@Model.Name" />
         <span asp-validation-for="Name"></span>
     </div>
     <div>
         <label asp-for="CuisineType"></label>
-        <select asp-for="CuisineType"
-                asp-items="@Html.GetEnumSelectList<CuisineType>()">
-        </select>
+        <select asp-for="CuisineType" asp-items="@Html.GetEnumSelectList<CuisineType>()"></select>
         <span asp-validation-for="CuisineType"></span>
     </div>
     <div>
         <label asp-for="Address"></label>
-        <input asp-for="Address" />
+        <input asp-for="Address" value="@Model.Address" />
         <span asp-validation-for="Address"> </span>
     </div>
 

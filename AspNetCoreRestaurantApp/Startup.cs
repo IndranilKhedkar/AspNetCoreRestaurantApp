@@ -1,9 +1,13 @@
 ﻿using AspNetCoreRestaurantApp.Services.Implementation;
 using AspNetCoreRestaurantApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -11,10 +15,28 @@ namespace AspNetCoreRestaurantApp
 {
     public class Startup
     {
+        private IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            })
+            .AddOpenIdConnect(options =>
+            {
+                _configuration.Bind("GoogleActiveDirectory", options);
+            })
+            .AddCookie();
+
             services.AddSingleton<IGreeter, Greeter>();
             services.AddScoped<IRestaurantManager, RestaurantManager>();
             services.AddScoped<IRestaurant, Restaurant>();
@@ -30,13 +52,12 @@ namespace AspNetCoreRestaurantApp
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
+            app.UseRewriter(new RewriteOptions()
+                                .AddRedirectToHttpsPermanent());
             app.UseStaticFiles();
+            app.UseNodeModules(env.ContentRootPath);
+            app.UseAuthentication();
             app.UseMvc(ConfigureRoutes);
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync(greeter.GetMessageOfTheDay());
-            });
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
@@ -47,8 +68,8 @@ namespace AspNetCoreRestaurantApp
                 defaults: new { controller = "About", action = "Address" });
 
             routeBuilder.MapRoute(
-                name:"Default",
-                template:"{controller=Home}/{action=Index}/{id?}");
+                name: "Default",
+                template: "{controller=Home}/{action=Index}/{id?}");
         }
     }
 }

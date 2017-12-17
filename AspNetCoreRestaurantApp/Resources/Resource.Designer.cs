@@ -77,5 +77,14 @@ namespace AspNetCoreRestaurantApp.Resources {
                 return ResourceManager.GetString("RestaurantDetailsNotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save Restaurant details. Please enter valid details. .
+        /// </summary>
+        internal static string UnableToSaveRestaurantDetails {
+            get {
+                return ResourceManager.GetString("UnableToSaveRestaurantDetails", resourceCulture);
+            }
+        }
     }
 }

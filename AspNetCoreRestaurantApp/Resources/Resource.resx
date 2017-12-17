@@ -123,4 +123,7 @@
   <data name="RestaurantDetailsNotFound" xml:space="preserve">
     <value>We're sorry. Unable to retrieve restaurant details at this moment. Please try again later.</value>
   </data>
+  <data name="UnableToSaveRestaurantDetails" xml:space="preserve">
+    <value>Unable to save Restaurant details. Please enter valid details. </value>
+  </data>
 </root>
